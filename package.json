@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo NO_TEST",
-    "commit": "gitzy -l --no-emoji -s - '(optional)'"
+    "commit": "git add . && gitzy --no-emoji -l -i -b -s -d"
   },
   "repository": {
     "type": "git",
