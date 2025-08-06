@@ -4,7 +4,8 @@
   "description": "NO_DESCRIPTION",
   "main": "index.js",
   "scripts": {
-    "test": "echo NO_TEST"
+    "test": "echo NO_TEST",
+    "commit": "cz"
   },
   "repository": {
     "type": "git",
