@@ -1,0 +1,26 @@
+{
+  "name": "@jlongyam/repo",
+  "version": "0.1.0",
+  "description": "NO_DESCRIPTION",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo NO_TEST"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jlongyam/repo.git"
+  },
+  "keywords": [
+    "NO",
+    "KEYWORD"
+  ],
+  "author": "jlongyam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jlongyam/repo/issues"
+  },
+  "homepage": "https://github.com/jlongyam/repo#readme",
+  "dependencies": {
+    "changelog": "^1.4.2"
+  }
+}
