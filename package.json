@@ -20,7 +20,8 @@
     "url": "https://github.com/jlongyam/repo/issues"
   },
   "homepage": "https://github.com/jlongyam/repo#readme",
-  "dependencies": {
-    "changelog": "^1.4.2"
+  "devDependencies": {
+    "generate-changelog": "^1.8.0",
+    "standard-commit": "^4.3.0"
   }
 }
