@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Add CHANGELOG.md to .gitignore ([6cc3be2](https://github.com/yourusername/yourrepo/commit/6cc3be2)) - _jlongyam_
+
+
+
+## [Unreleased]
+
+### Added
+
 - Generate changelog using Keep a Changelog format ([26d5f99](https://github.com/username/repo/commit/26d5f99)) - _jlongyam_
 - ✨ added cool new feature ([0a11ff6](https://github.com/username/repo/commit/0a11ff6)) - _jlongyam_
 - initial commit and setup project ([288fd4d](https://github.com/username/repo/commit/288fd4d)) - _jlongyam_

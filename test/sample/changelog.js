@@ -1,7 +1,8 @@
 import { generateKeepAChangelog as changelog  } from "../../src/changelog.js";
 
 changelog({
-  repoUrl: 'https://github.com/username/repo',
+  repoUrl: 'https://github.com/yourusername/yourrepo',
   includeUnreleased: true,
-  groupByType: true
+  groupByType: true,
+  append: true // Default is true, can be set to false to regenerate completely
 });
