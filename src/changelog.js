@@ -2,11 +2,6 @@ import fs from 'fs/promises';
 import { execSync } from 'child_process';
 import semver from 'semver';
 
-/**
- * Generate or update CHANGELOG.md
- * @param {Object} options
- * @param {string} options.repoUrl - GitHub repo URL (e.g., "https://github.com/user/repo")
- */
 export async function generateChangelog(options = {}) {
   const { repoUrl } = options;
 
@@ -17,11 +12,10 @@ export async function generateChangelog(options = {}) {
 
     // 2. Get commits for each version range
     const changelogData = {
-      unreleased: await getGitLogCommits(tags[0]?.hash, 'HEAD'), // Unreleased commits
+      unreleased: await getGitLogCommits(tags[0]?.hash, 'HEAD'),
       versions: []
     };
 
-    // Add commits for each tagged version
     for (let i = 0; i < tags.length; i++) {
       const from = tags[i + 1]?.hash;
       const to = tags[i].hash;
@@ -32,16 +26,17 @@ export async function generateChangelog(options = {}) {
       });
     }
 
-    // 3. Generate the changelog content
+    // 3. Generate the changelog content with proper sections
     const changelogContent = generateChangelogContent(changelogData, repoUrl);
 
     // 4. Write to file
     await fs.writeFile('CHANGELOG.md', changelogContent);
-    console.log('✅ CHANGELOG.md generated successfully!');
+    console.log('✅ CHANGELOG.md generated with proper sections!');
   } catch (error) {
     console.error('❌ Error:', error.message);
   }
 }
+
 
 // Helper: Get all version tags (sorted newest first)
 async function getVersionTags() {
@@ -93,28 +88,24 @@ async function getGitLogCommits(from, to) {
     : [];
 }
 
-// Helper: Generate Markdown content
 function generateChangelogContent(data, repoUrl) {
   let changelog = `# Changelog\n\n` +
-    `All notable changes will be documented here.\n\n` +
-    `Generated using [Keep a Changelog](https://keepachangelog.com).\n\n`;
+    `All notable changes to this project will be documented in this file.\n\n` +
+    `The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),\n` +
+    `and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n\n`;
 
-  // Unreleased section
+  // Unreleased section with headers
   if (data.unreleased.length > 0) {
-    changelog += `## [Unreleased]\n\n`;
-    data.unreleased.forEach(commit => {
-      changelog += `- ${formatCommit(commit, repoUrl)}\n`;
-    });
-    changelog += '\n';
+    changelog += `## [Unreleased]\n\n` +
+      `### Added\n### Changed\n### Deprecated\n### Removed\n### Fixed\n### Security\n\n` +
+      `${formatCommitsByType(data.unreleased, repoUrl)}\n`;
   }
 
-  // Released versions
+  // Released versions with headers
   data.versions.forEach(version => {
-    changelog += `## [${version.version}] - ${version.date}\n\n`;
-    version.commits.forEach(commit => {
-      changelog += `- ${formatCommit(commit, repoUrl)}\n`;
-    });
-    changelog += '\n';
+    changelog += `## [${version.version}] - ${version.date}\n\n` +
+      `### Added\n### Changed\n### Deprecated\n### Removed\n### Fixed\n### Security\n\n` +
+      `${formatCommitsByType(version.commits, repoUrl)}\n`;
   });
 
   // Version comparison links
@@ -126,17 +117,47 @@ function generateChangelogContent(data, repoUrl) {
     });
   }
 
+  // Add Keep a Changelog reference at the bottom
+  changelog += `\n\n## Keep a Changelog Format\n\n` +
+    `- \`Added\` for new features.\n` +
+    `- \`Changed\` for changes in existing functionality.\n` +
+    `- \`Deprecated\` for soon-to-be removed features.\n` +
+    `- \`Removed\` for now removed features.\n` +
+    `- \`Fixed\` for any bug fixes.\n` +
+    `- \`Security\` in case of vulnerabilities.`;
+
   return changelog;
 }
 
-// Helper: Format a single commit line
-function formatCommit(commit, repoUrl) {
-  let line = commit.message;
-  if (repoUrl) {
-    line += ` ([${commit.hash.slice(0, 7)}](${repoUrl}/commit/${commit.hash}))`;
-  }
-  return line;
+// Group commits by type (feat -> Added, fix -> Fixed, etc.)
+function formatCommitsByType(commits, repoUrl) {
+  const typeMap = {
+    feat: 'Added',
+    fix: 'Fixed',
+    perf: 'Changed',
+    refactor: 'Changed',
+    docs: 'Changed',
+    test: 'Changed',
+    chore: 'Changed',
+    revert: 'Removed'
+  };
+
+  const grouped = {};
+  commits.forEach(commit => {
+    const type = commit.message.match(/^(\w+)/)?.[1] || 'other';
+    const category = typeMap[type] || 'Other';
+    if (!grouped[category]) grouped[category] = [];
+    grouped[category].push(formatCommit(commit, repoUrl));
+  });
+
+  let result = '';
+  Object.entries(grouped).forEach(([category, items]) => {
+    result += `#### ${category}\n${items.join('\n')}\n\n`;
+  });
+
+  return result;
 }
+
 
 // Example usage
 // generateChangelog({ repoUrl: 'https://github.com/your/repo' });
