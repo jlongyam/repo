@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Enhance changelog generation ([a92c151](https://github.com/yourusername/yourrepo/commit/a92c151)) - _jlongyam_
+
+
+
+## [Unreleased]
+
+### Added
+
 - Add CHANGELOG.md to .gitignore ([6cc3be2](https://github.com/yourusername/yourrepo/commit/6cc3be2)) - _jlongyam_
 
 

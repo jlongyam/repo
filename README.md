@@ -1,3 +1,9 @@
+# repo
+
+Script tool to manage repository
+
+- commit
+- changelog
 
 ### References
 
@@ -6,4 +12,4 @@
 
 ### See also
 
-- GemCommit
+- AI tool: GemCommit
