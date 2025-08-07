@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "description": "NO_DESCRIPTION",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo NO_TEST",
-    "commit": "git add . && gitzy --no-emoji -l -i -b -s -d"
+    "test": "node test/sample/commit.js"
   },
   "repository": {
     "type": "git",
@@ -21,8 +21,7 @@
     "url": "https://github.com/jlongyam/repo/issues"
   },
   "homepage": "https://github.com/jlongyam/repo#readme",
-  "devDependencies": {
-    "generate-changelog": "^1.8.0",
-    "gitzy": "^5.9.0"
+  "dependencies": {
+    "semver": "^7.7.2"
   }
 }
