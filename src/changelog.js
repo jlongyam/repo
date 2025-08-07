@@ -3,51 +3,25 @@ import { execSync } from 'child_process';
 import semver from 'semver';
 
 /**
- * Generates or updates a CHANGELOG.md file following Keep a Changelog standards
- * @param {Object} options - Configuration options
- * @param {string} [options.outputFile='CHANGELOG.md'] - Output file path
- * @param {string} [options.repoUrl] - Repository URL to generate links
- * @param {boolean} [options.groupByType=true] - Group commits by conventional commit types
- * @param {boolean} [options.includeUnreleased=true] - Include an "Unreleased" section
- * @param {string} [options.latestVersion] - Explicitly set the latest version
- * @param {boolean} [options.append=true] - Append to existing changelog if it exists
+ * Generate or update CHANGELOG.md
+ * @param {Object} options
+ * @param {string} options.repoUrl - GitHub repo URL (e.g., "https://github.com/user/repo")
  */
-export async function generateKeepAChangelog(options = {}) {
-  const {
-    outputFile = 'CHANGELOG.md',
-    repoUrl,
-    groupByType = true,
-    includeUnreleased = true,
-    latestVersion,
-    append = true
-  } = options;
+export async function generateChangelog(options = {}) {
+  const { repoUrl } = options;
 
   try {
     // 1. Get all version tags
     const tags = await getVersionTags();
     console.log(`Found tags: ${tags.map(t => t.version).join(', ')}`);
 
-    // 2. Get existing content if append mode
-    let existingContent = '';
-    if (append) {
-      try {
-        existingContent = await fs.readFile(outputFile, 'utf8');
-      } catch (error) {
-        if (error.code !== 'ENOENT') throw error;
-      }
-    }
-
-    // 3. Determine current version
-    const currentVersion = latestVersion || (tags[0]?.version || '0.1.0');
-    console.log(`Current version: ${currentVersion}`);
-
-    // 4. Generate new content
+    // 2. Get commits for each version range
     const changelogData = {
-      unreleased: includeUnreleased ? await getNewCommits(tags[0]?.hash, existingContent) : [],
+      unreleased: await getGitLogCommits(tags[0]?.hash, 'HEAD'), // Unreleased commits
       versions: []
     };
 
-    // Populate version history
+    // Add commits for each tagged version
     for (let i = 0; i < tags.length; i++) {
       const from = tags[i + 1]?.hash;
       const to = tags[i].hash;
@@ -58,213 +32,111 @@ export async function generateKeepAChangelog(options = {}) {
       });
     }
 
-    // 5. Generate complete changelog
-    const changelogContent = generateCompleteChangelog(changelogData, {
-      repoUrl,
-      groupByType,
-      currentVersion,
-      tags
-    });
+    // 3. Generate the changelog content
+    const changelogContent = generateChangelogContent(changelogData, repoUrl);
 
-    // 6. Write to file
-    await fs.writeFile(outputFile, changelogContent);
-    console.log(`✅ Successfully generated ${outputFile} with versions`);
-    return true;
+    // 4. Write to file
+    await fs.writeFile('CHANGELOG.md', changelogContent);
+    console.log('✅ CHANGELOG.md generated successfully!');
   } catch (error) {
     console.error('❌ Error:', error.message);
-    return false;
   }
 }
+
+// Helper: Get all version tags (sorted newest first)
 async function getVersionTags() {
-  try {
-    const tagList = execSync('git tag -l --sort=-creatordate')
-      .toString()
-      .trim()
-      .split('\n')
-      .filter(Boolean);
+  const tags = execSync('git tag -l --sort=-v:refname')
+    .toString()
+    .trim()
+    .split('\n')
+    .filter(tag => semver.valid(tag.replace(/^v/, '')));
 
-    console.log("Raw tags:", tagList);  // Debug output
-
-    const validTags = [];
-    for (const tag of tagList) {
-      // More flexible version parsing
-      const versionMatch = tag.match(/v?(\d+\.\d+\.\d+)/);
-      if (versionMatch) {
-        validTags.push({
-          originalTag: tag,
-          version: versionMatch[1],  // Gets 0.1.1 from v0.1.1
-          hash: await getTagHash(tag),
-          date: await getTagDate(tag)
-        });
-      }
-    }
-
-    return validTags.sort((a, b) => semver.rcompare(a.version, b.version));
-  } catch (error) {
-    console.error("Tag detection failed:", error);
-    return [];
-  }
-}
-
-function mergeChangelogContent(existingContent, newContent) {
-  // Find the position of the first version header
-  const versionHeaderIndex = existingContent.indexOf('\n## [');
-
-  if (versionHeaderIndex === -1) {
-    // No version found, append at the end
-    return `${existingContent}\n\n${newContent}`;
-  }
-
-  // Insert new content after the header but before the first version
-  return (
-    existingContent.slice(0, versionHeaderIndex) +
-    '\n' + newContent + '\n' +
-    existingContent.slice(versionHeaderIndex)
+  return Promise.all(
+    tags.map(async tag => {
+      const version = tag.replace(/^v/, '');
+      return {
+        version,
+        hash: await getTagHash(tag),
+        date: await getTagDate(tag)
+      };
+    })
   );
 }
 
+// Helper: Get commit hash for a tag
 async function getTagHash(tag) {
   return execSync(`git rev-list -n 1 ${tag}`).toString().trim();
 }
 
+// Helper: Get date for a tag (YYYY-MM-DD)
 async function getTagDate(tag) {
-  return execSync(`git log -1 --format=%ai ${tag}`).toString().trim().split(' ')[0];
+  return execSync(`git log -1 --format=%ai ${tag}`)
+    .toString()
+    .trim()
+    .split(' ')[0];
 }
 
+// Helper: Get commits between two refs (from..to)
 async function getGitLogCommits(from, to) {
-  try {
-    const range = from ? `${from}..${to || 'HEAD'}` : (to || 'HEAD');
-    const log = execSync(`git log --pretty=format:"%h|%s|%ad|%an" --date=short ${range}`)
-      .toString()
-      .trim();
+  const range = from ? `${from}..${to}` : to || 'HEAD';
+  const log = execSync(
+    `git log --pretty=format:"%h|%s|%ad|%an" --date=short ${range}`
+  )
+    .toString()
+    .trim();
 
-    return log ? log.split('\n').map(line => {
-      const [hash, message, date, author] = line.split('|');
-      return { hash, message, date, author };
-    }) : [];
-  } catch (error) {
-    console.warn(`Warning: No commits found for range ${from}..${to}`);
-    return [];
-  }
+  return log
+    ? log.split('\n').map(line => {
+        const [hash, message, date, author] = line.split('|');
+        return { hash, message, date, author };
+      })
+    : [];
 }
 
-function generateNewChangelogContent(commits, options) {
-  const { repoUrl, groupByType } = options;
-
-  let content = '## [Unreleased]\n\n' +
-    generateSectionContent(commits, { repoUrl, groupByType });
-
-  return content;
-}
-
-function generateFullChangelogContent(commits, options) {
-  const { repoUrl, groupByType, currentVersion, tags } = options;
-
+// Helper: Generate Markdown content
+function generateChangelogContent(data, repoUrl) {
   let changelog = `# Changelog\n\n` +
-    `All notable changes to this project will be documented in this file.\n\n` +
-    `The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),\n` +
-    `and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n\n`;
+    `All notable changes will be documented here.\n\n` +
+    `Generated using [Keep a Changelog](https://keepachangelog.com).\n\n`;
 
-  changelog += generateNewChangelogContent(commits, options);
+  // Unreleased section
+  if (data.unreleased.length > 0) {
+    changelog += `## [Unreleased]\n\n`;
+    data.unreleased.forEach(commit => {
+      changelog += `- ${formatCommit(commit, repoUrl)}\n`;
+    });
+    changelog += '\n';
+  }
 
-  // Add links section if repoUrl is provided
+  // Released versions
+  data.versions.forEach(version => {
+    changelog += `## [${version.version}] - ${version.date}\n\n`;
+    version.commits.forEach(commit => {
+      changelog += `- ${formatCommit(commit, repoUrl)}\n`;
+    });
+    changelog += '\n';
+  });
+
+  // Version comparison links
   if (repoUrl) {
-    changelog += generateComparisonLinks(currentVersion, tags, repoUrl);
+    changelog += `[Unreleased]: ${repoUrl}/compare/v${data.versions[0]?.version || '0.1.0'}...HEAD\n`;
+    data.versions.forEach((version, i) => {
+      const prev = data.versions[i + 1]?.version || 'HEAD';
+      changelog += `[${version.version}]: ${repoUrl}/compare/v${prev}...v${version.version}\n`;
+    });
   }
 
   return changelog;
 }
 
-function generateSectionContent(commits, options) {
-  const { repoUrl, groupByType } = options;
-  let content = '';
-
-  if (groupByType) {
-    const typeGroups = groupCommitsByType(commits);
-    const typeOrder = ['feat', 'fix', 'perf', 'refactor', 'docs', 'test', 'build', 'ci', 'chore', 'revert', 'other'];
-
-    for (const type of typeOrder) {
-      if (typeGroups[type]?.length > 0) {
-        content += `### ${mapTypeToSection(type)}\n\n`;
-        typeGroups[type].forEach(commit => {
-          content += formatCommit(commit, repoUrl) + '\n';
-        });
-        content += '\n';
-      }
-    }
-  } else {
-    commits.forEach(commit => {
-      content += formatCommit(commit, repoUrl) + '\n';
-    });
-    content += '\n';
-  }
-
-  return content;
-}
-
-function mapTypeToSection(type) {
-  const typeMap = {
-    feat: 'Added',
-    fix: 'Fixed',
-    perf: 'Changed',
-    refactor: 'Changed',
-    docs: 'Changed',
-    test: 'Changed',
-    build: 'Changed',
-    ci: 'Changed',
-    chore: 'Changed',
-    revert: 'Removed',
-    other: 'Other'
-  };
-  return typeMap[type] || type;
-}
-
-function groupCommitsByType(commits) {
-  const groups = {};
-
-  commits.forEach(commit => {
-    const match = commit.message.match(/^(\w+)(?:\(([^)]+)\))?:?\s?(.+)/i);
-    let type = 'other';
-    let message = commit.message;
-
-    if (match) {
-      type = match[1].toLowerCase();
-      const scope = match[2];
-      message = match[3].trim();
-
-      if (scope) {
-        message = `**${scope}:** ${message}`;
-      }
-    }
-
-    if (!groups[type]) groups[type] = [];
-    groups[type].push({ ...commit, message });
-  });
-
-  return groups;
-}
-
+// Helper: Format a single commit line
 function formatCommit(commit, repoUrl) {
-  let message = `- ${commit.message}`;
+  let line = commit.message;
   if (repoUrl) {
-    message += ` ([${commit.hash.substring(0, 7)}](${repoUrl}/commit/${commit.hash}))`;
+    line += ` ([${commit.hash.slice(0, 7)}](${repoUrl}/commit/${commit.hash}))`;
   }
-  message += ` - _${commit.author}_`;
-  return message;
+  return line;
 }
 
-function generateComparisonLinks(currentVersion, tags, repoUrl) {
-  let links = '';
-
-  if (tags.length === 0) {
-    links = `[unreleased]: ${repoUrl}/compare/v${currentVersion}...HEAD\n`;
-  } else {
-    links = `[unreleased]: ${repoUrl}/compare/v${currentVersion}...HEAD\n`;
-    for (let i = 0; i < tags.length; i++) {
-      const prevTag = i < tags.length - 1 ? `v${tags[i + 1].version}` : 'HEAD';
-      links += `[${tags[i].version}]: ${repoUrl}/compare/${prevTag}...v${tags[i].version}\n`;
-    }
-  }
-
-  return links;
-}
+// Example usage
+// generateChangelog({ repoUrl: 'https://github.com/your/repo' });

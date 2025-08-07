@@ -1,4 +1,4 @@
-import { generateKeepAChangelog as changelog  } from "../../src/changelog.js";
+import { generateChangelog as changelog  } from "../../src/changelog.js";
 
 changelog({
   repoUrl: 'https://github.com/jlongyam/repo',
