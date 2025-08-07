@@ -3,6 +3,7 @@
 Script tool to manage repository
 
 - commit
+- nextVersion (TODO)
 - changelog
 
 ### References
