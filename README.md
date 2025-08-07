@@ -4,16 +4,7 @@ Script tool to manage repository
 
 - commit - convesional
 - nextVersion - semantic (TODO)
-- changelog - keep
-
-```
-# First create a version tag if none exist
-git tag v1.0.0
-git push --tags
-
-# Then run the generator
-node --experimental-modules generate-changelog.js
-```
+- changelog - keep. see [example](CHANGELOG.md)
 
 ### References
 

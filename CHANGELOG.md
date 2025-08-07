@@ -4,8 +4,10 @@ All notable changes will be documented here.
 
 Generated using [Keep a Changelog](https://keepachangelog.com).
 
-## [Unreleased]
+## [0.1.3] - 2025-08-08
 
+- 0.1.3 ([fc852c8](https://github.com/jlongyam/repo/commit/fc852c8))
+- refactor: Improve changelog generation ([afbac80](https://github.com/jlongyam/repo/commit/afbac80))
 - feat: Add changelog generation with Keep a Changelog format ([ab8618f](https://github.com/jlongyam/repo/commit/ab8618f))
 
 ## [0.1.2] - 2025-08-08
@@ -32,6 +34,7 @@ Generated using [Keep a Changelog](https://keepachangelog.com).
 - feat: initial commit and setup project ([288fd4d](https://github.com/jlongyam/repo/commit/288fd4d))
 - Initial commit ([09df3be](https://github.com/jlongyam/repo/commit/09df3be))
 
-[Unreleased]: https://github.com/jlongyam/repo/compare/v0.1.2...HEAD
+[Unreleased]: https://github.com/jlongyam/repo/compare/v0.1.3...HEAD
+[0.1.3]: https://github.com/jlongyam/repo/compare/v0.1.2...v0.1.3
 [0.1.2]: https://github.com/jlongyam/repo/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/jlongyam/repo/compare/vHEAD...v0.1.1
