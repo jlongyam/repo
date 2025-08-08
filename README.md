@@ -3,11 +3,10 @@
 Script tool to manage repository
 
 - commit - convesional
-- nextVersion - semantic (TODO)
-- changelog - keep. see [example](CHANGELOG.md)
+- nextVersion - semantic
+- changelog - keep
 
 ### References
-
 
 - https://www.conventionalcommits.org/en/v1.0.0/
 - semver
@@ -16,3 +15,4 @@ Script tool to manage repository
 ### See also
 
 - AI tool: GemCommit
+- [CHANGELOG](CHANGELOG.md)
