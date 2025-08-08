@@ -7,11 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- chore: bump version to 0.2.1 ([d260b0c](https://github.com/jlongyam/repo/commit/d260b0c)) - _jlongyam_
+
+
+## [0.2.1] - 2025-08-08
+
+
+## [0.2.0] - 2025-08-08
+
 ### Added
+- feat: Add version-next functionality ([aa030c6](https://github.com/jlongyam/repo/commit/aa030c6)) - _jlongyam_
 - feat: Generate CHANGELOG with sections and Keep a Changelog format ([d6cee6b](https://github.com/jlongyam/repo/commit/d6cee6b)) - _jlongyam_
 
 ### Changed
+- refactor: Improve changelog generation and formatting ([b1a60ee](https://github.com/jlongyam/repo/commit/b1a60ee)) - _jlongyam_
 - docs: Update README and CHANGELOG for v0.1.3 release ([4de5c01](https://github.com/jlongyam/repo/commit/4de5c01)) - _jlongyam_
+
+### Fixed
+- fix: Correct homepage URL in package.json ([e4ced6b](https://github.com/jlongyam/repo/commit/e4ced6b)) - _jlongyam_
 
 
 ## [0.1.3] - 2025-08-08
@@ -51,7 +65,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - fix: add cz commitizen ([e394604](https://github.com/jlongyam/repo/commit/e394604)) - _jlongyam_
 
 
-[Unreleased]: https://github.com/jlongyam/repo/compare/v0.1.3...HEAD
+[Unreleased]: https://github.com/jlongyam/repo/compare/v0.2.1...HEAD
+[0.2.1]: https://github.com/jlongyam/repo/compare/v0.2.0...v0.2.1
+[0.2.0]: https://github.com/jlongyam/repo/compare/v0.1.3...v0.2.0
 [0.1.3]: https://github.com/jlongyam/repo/compare/v0.1.2...v0.1.3
 [0.1.2]: https://github.com/jlongyam/repo/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/jlongyam/repo/compare/vHEAD...v0.1.1
