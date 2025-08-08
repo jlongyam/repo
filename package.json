@@ -20,7 +20,7 @@
   "bugs": {
     "url": "https://github.com/jlongyam/repo/issues"
   },
-  "homepage": "https://github.com/jlongyam/repo#readme",
+  "homepage": "https://github.com/jlongyam/repo",
   "dependencies": {
     "semver": "^7.7.2",
     "version-next": "^1.0.2"
