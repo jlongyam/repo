@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ## [0.3.0] - 2026-01-13
 
 ### Added
+
 - patch(changelog): update changelog for feat: add CHANGELOG.MD
 - feat: add CHANGELOG.MD
 - feat: Update CHANGELOG.md and sample config
@@ -24,9 +25,11 @@ All notable changes to this project will be documented in this file.
 - feat: initial commit and setup project
 
 ### Fixed
+
 - fix: Correct homepage URL in package.json
 
 ### Changed
+
 - chore: bump version to 0.2.1
 - 0.2.0
 - refactor: Improve changelog generation and formatting
@@ -40,4 +43,3 @@ All notable changes to this project will be documented in this file.
 - chore: 🤖 test gitzy
 - docs: test
 - Initial commit
-
