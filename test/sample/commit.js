@@ -1,5 +1,13 @@
-import { gitCommit } from "../../src/commit.js";
+import { commit, gitCommit } from "../../src/commit.js";
 
+// console.log(commit());
+// console.log(commit({
+//   help: true
+// }))
+// console.log(commit({
+//   type: 'docs',
+//   content: 'update README'
+// }))
 // console.log(commit({
 //   type: 'fix',
 //   scope: 'parser',
@@ -21,6 +29,13 @@ import { gitCommit } from "../../src/commit.js";
 // console.log(commit({ content: 'some change' })); // Error: missing type
 // console.log(commit({ type: 'feature', content: 'invalid type' })); // Warning
 
+// gitCommit({
+//   dryRun: true
+// })
+// gitCommit()//
+gitCommit({
+  test: true
+})
 // Create a real git commit
 // gitCommit({
 //   type: 'feat',
@@ -37,10 +52,10 @@ import { gitCommit } from "../../src/commit.js";
 // });
 
 // with breaking change
-gitCommit({
-  type: 'feat',
-  content: 'change authentication API',
-  breaking: true,
-  body: 'Migrated from v1 to v2 of the auth service',
-  addAll: true
-});
+// gitCommit({
+//   type: 'feat',
+//   content: 'change authentication API',
+//   breaking: true,
+//   body: 'Migrated from v1 to v2 of the auth service',
+//   addAll: true
+// });

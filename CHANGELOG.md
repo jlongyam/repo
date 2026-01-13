@@ -8,44 +8,48 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
+
 - chore: bump version to 0.2.1 ([d260b0c](https://github.com/jlongyam/repo/commit/d260b0c)) - _jlongyam_
 
-
 ## [0.2.1] - 2025-08-08
-
 
 ## [0.2.0] - 2025-08-08
 
 ### Added
+
 - feat: Add version-next functionality ([aa030c6](https://github.com/jlongyam/repo/commit/aa030c6)) - _jlongyam_
+
 - feat: Generate CHANGELOG with sections and Keep a Changelog format ([d6cee6b](https://github.com/jlongyam/repo/commit/d6cee6b)) - _jlongyam_
 
 ### Changed
+
 - refactor: Improve changelog generation and formatting ([b1a60ee](https://github.com/jlongyam/repo/commit/b1a60ee)) - _jlongyam_
 - docs: Update README and CHANGELOG for v0.1.3 release ([4de5c01](https://github.com/jlongyam/repo/commit/4de5c01)) - _jlongyam_
 
 ### Fixed
-- fix: Correct homepage URL in package.json ([e4ced6b](https://github.com/jlongyam/repo/commit/e4ced6b)) - _jlongyam_
 
+- fix: Correct homepage URL in package.json ([e4ced6b](https://github.com/jlongyam/repo/commit/e4ced6b)) - _jlongyam_
 
 ## [0.1.3] - 2025-08-08
 
 ### Added
+
 - feat: Add changelog generation with Keep a Changelog format ([ab8618f](https://github.com/jlongyam/repo/commit/ab8618f)) - _jlongyam_
 
 ### Changed
-- refactor: Improve changelog generation ([afbac80](https://github.com/jlongyam/repo/commit/afbac80)) - _jlongyam_
 
+- refactor: Improve changelog generation ([afbac80](https://github.com/jlongyam/repo/commit/afbac80)) - _jlongyam_
 
 ## [0.1.2] - 2025-08-08
 
 ### Added
-- feat: Improve changelog generation with version history support ([3da3f43](https://github.com/jlongyam/repo/commit/3da3f43)) - _jlongyam_
 
+- feat: Improve changelog generation with version history support ([3da3f43](https://github.com/jlongyam/repo/commit/3da3f43)) - _jlongyam_
 
 ## [0.1.1] - 2025-08-08
 
 ### Added
+
 - feat!: change authentication API ([3f2f9d9](https://github.com/jlongyam/repo/commit/3f2f9d9)) - _jlongyam_
 - feat: Enhance changelog generation ([a92c151](https://github.com/jlongyam/repo/commit/a92c151)) - _jlongyam_
 - feat: Add CHANGELOG.md to .gitignore ([6cc3be2](https://github.com/jlongyam/repo/commit/6cc3be2)) - _jlongyam_
@@ -54,6 +58,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - feat: initial commit and setup project ([288fd4d](https://github.com/jlongyam/repo/commit/288fd4d)) - _jlongyam_
 
 ### Changed
+
 - docs: update README to clarify nextVersion and add references ([988a176](https://github.com/jlongyam/repo/commit/988a176)) - _jlongyam_
 - docs: update README to include nextVersion in the feature list ([6055443](https://github.com/jlongyam/repo/commit/6055443)) - _jlongyam_
 - refactor: hello ([5f0945f](https://github.com/jlongyam/repo/commit/5f0945f)) - _jlongyam_
@@ -62,8 +67,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - docs: test ([a387980](https://github.com/jlongyam/repo/commit/a387980)) - _jlongyam_
 
 ### Fixed
-- fix: add cz commitizen ([e394604](https://github.com/jlongyam/repo/commit/e394604)) - _jlongyam_
 
+- fix: add cz commitizen ([e394604](https://github.com/jlongyam/repo/commit/e394604)) - _jlongyam_
 
 [Unreleased]: https://github.com/jlongyam/repo/compare/v0.2.1...HEAD
 [0.2.1]: https://github.com/jlongyam/repo/compare/v0.2.0...v0.2.1
