@@ -1,6 +1,232 @@
-# Changelog
+# Changelogs
 
-All notable changes to this project will be documented in this file.
+
+<pre>
+***********************************************************
+*                                                         *
+*  13/1/2026 - 14:13 - [BLAME] => jhonliongbox@gmail.com  *
+*                                                         *
+***********************************************************
+</pre>
+<strong>Message: </strong><br>
+"feat: add CHANGELOG.MD"<br>
+
+<strong>Affected files: </strong><br>
+".gitignore, CHANGELOG.md, README.md, package-lock.json, src/commit.js, test/sample/commit.js"
+
+<strong>DIFF: </strong><br>
+```diff
++.DS_Store
+-- chore: bump version to 0.2.1 ([d260b0c](https://github.com/jlongyam/repo/commit/d260b0c)) - _jlongyam_
++- chore: bump version to 0.2.1 ([d260b0c](https://github.com/jlongyam/repo/commit/d260b0c)) - _jlongyam_
+-
++
++
++
+-- fix: Correct homepage URL in package.json ([e4ced6b](https://github.com/jlongyam/repo/commit/e4ced6b)) - _jlongyam_
++- fix: Correct homepage URL in package.json ([e4ced6b](https://github.com/jlongyam/repo/commit/e4ced6b)) - _jlongyam_
++
+-- refactor: Improve changelog generation ([afbac80](https://github.com/jlongyam/repo/commit/afbac80)) - _jlongyam_
++- refactor: Improve changelog generation ([afbac80](https://github.com/jlongyam/repo/commit/afbac80)) - _jlongyam_
+-- feat: Improve changelog generation with version history support ([3da3f43](https://github.com/jlongyam/repo/commit/3da3f43)) - _jlongyam_
++- feat: Improve changelog generation with version history support ([3da3f43](https://github.com/jlongyam/repo/commit/3da3f43)) - _jlongyam_
++
++
+-- fix: add cz commitizen ([e394604](https://github.com/jlongyam/repo/commit/e394604)) - _jlongyam_
++- fix: add cz commitizen ([e394604](https://github.com/jlongyam/repo/commit/e394604)) - _jlongyam_
+-# repo
++# Repo
+-Script tool to manage repository
++CLI tool to manage repository:
+-- commit - convesional
+-- nextVersion - semantic
+-- changelog - keep
+-
+-### References
+-
+-- https://www.conventionalcommits.org/en/v1.0.0/
+-- semver
+-- https://keepachangelog.com/en/1.1.0/
+-
+-### See also
+-
+-- AI tool: GemCommit
+-- [CHANGELOG](CHANGELOG.md)
++- commit - [conventionalcommits]((https://www.conventionalcommits.org/en/v1.0.0/))
++- changelog - [keepachangelog](https://keepachangelog.com/en/1.1.0/)
++- version - [semver](https://semver.org/)
+-  "version": "0.2.0",
++  "version": "0.2.1",
+-      "version": "0.2.0",
++      "version": "0.2.1",
+-      "version": "7.7.2",
+-      "resolved": "https://registry.npmjs.org/semver/-/semver-7.7.2.tgz",
+-      "integrity": "sha512-RF0Fw+rO5AMf9MAyaRXI4AV0Ulj5lMHqVxxdSgiVbixSCXoEmmX/jk0CuJw4+3SqroYO9VoUh+HcuJivvtJemA==",
++      "version": "7.7.3",
++      "resolved": "https://registry.npmjs.org/semver/-/semver-7.7.3.tgz",
++      "integrity": "sha512-SdsKMrI9TdgjdweUSR9MweHA4EJ8YxHn8DFaDisvhVlUOe4BF1tLD7GAj0lIqWVl+dPb/rExr0Btby5loQm20Q==",
++function showHelp() {
++  return `
++Conventional Commit Message Generator
++Usage: commit({ type: string, content: string [, options] })
++
++Required:
++  type      Commit type (feat, fix, docs, style, refactor, test, chore, [ ...Conventionl_Types])
++  content   Commit description (what changed)
++
++Optional:
++  scope     Scope of changes (e.g., component name)
++  breaking  Boolean indicating breaking changes
++  body      Detailed explanation of changes
++  footer    Footer information (e.g., issue references)
++  help      Show this help message
++
++Conventional_Types:
++  feat      A new feature
++  fix       A bug fix
++  docs      Documentation changes
++  style     Code style/formatting
++  refactor  Code change that neither fixes nor adds a feature
++  test      Adding missing tests
++  chore     Maintenance tasks
++  perf      Performance improvement
++  build     Build system changes
++  ci        CI configuration changes
++  revert    Reverts a previous commit
++
++Examples:
++  // Basic feature
++  commit({
++    type: 'feat',
++    content: 'add user profile page'
++  });
++
++  // Fix with scope
++  commit({
++    type: 'fix',
++    scope: 'parser',
++    content: 'handle null values in template'
++  });
++
++  // Breaking change
++  commit({
++    type: 'feat',
++    content: 'change authentication method',
++    breaking: true,
++    body: 'Migrated from JWT to session cookies',
++    footer: 'Closes #123'
++  });
++`;
++}
++    
++
++    // Generate the commit message
++    const message = commit(options);
++    if(!options.type && !options.content) {
++      console.log(message);
++      return;
++    }
+-
+-    // Generate the commit message
+-    const message = commit(options);
+-    
+-    if (options.dryRun) {
+-      console.log('Dry run - would commit with message:\n');
++    if (options.test) {
++      // console.log('Dry run - would commit with message:\n');
+-      console.log('\nAdd --no-dry-run to actually commit');
++      // console.log('\nAdd --no-dry-run to actually commit');
+-    if (options.addAll) {
++    if (options.stages) {
+-    
+-    // If it's a Git error, show more context
+-function showHelp() {
+-  return `
+-Conventional Commit Message Generator
+-Usage: commit({ type: string, content: string [, options] })
+-
+-Required:
+-  type      Commit type (feat, fix, docs, style, refactor, test, chore, etc.)
+-  content   Commit description (what changed)
+-
+-Optional:
+-  scope     Scope of changes (e.g., component name)
+-  breaking  Boolean indicating breaking changes
+-  body      Detailed explanation of changes
+-  footer    Footer information (e.g., issue references)
+-  help      Show this help message
+-
+-Examples:
+-  // Basic feature
+-  commit({
+-    type: 'feat',
+-    content: 'add user profile page'
+-  });
+-
+-  // Fix with scope
+-  commit({
+-    type: 'fix',
+-    scope: 'parser',
+-    content: 'handle null values in template'
+-  });
+-
+-  // Breaking change
+-  commit({
+-    type: 'feat',
+-    content: 'change authentication method',
+-    breaking: true,
+-    body: 'Migrated from JWT to session cookies',
+-    footer: 'Closes #123'
+-  });
+-Conventional Types:
+-  feat      A new feature
+-  fix       A bug fix
+-  docs      Documentation changes
+-  style     Code style/formatting
+-  refactor  Code change that neither fixes nor adds a feature
+-  test      Adding missing tests
+-  chore     Maintenance tasks
+-  perf      Performance improvement
+-  build     Build system changes
+-  ci        CI configuration changes
+-  revert    Reverts a previous commit
+-`;
+-}
+-import { gitCommit } from "../../src/commit.js";
++import { commit, gitCommit } from "../../src/commit.js";
++// console.log(commit());
++// console.log(commit({
++//   help: true
++// }))
++// console.log(commit({
++//   type: 'docs',
++//   content: 'update README'
++// }))
++// gitCommit({
++//   dryRun: true
++// })
++// gitCommit()//
++gitCommit({
++  test: true
++})
+-gitCommit({
+-  type: 'feat',
+-  content: 'change authentication API',
+-  breaking: true,
+-  body: 'Migrated from v1 to v2 of the auth service',
+-  addAll: true
+-});
++// gitCommit({
++//   type: 'feat',
++//   content: 'change authentication API',
++//   breaking: true,
++//   body: 'Migrated from v1 to v2 of the auth service',
++//   addAll: true
++// });
+```
+<p><small>This might be a 🚀 or a 🧨 XD</small></p>
+<p>&nbsp;</p>
+ll notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
