@@ -23,28 +23,33 @@ export class Logger {
 
   info(message) {
     if (!this.silent) {
+      // eslint-disable-next-line no-console
       console.log(this.#format(message, '📦'));
     }
   }
 
   success(message) {
     if (!this.silent) {
+      // eslint-disable-next-line no-console
       console.log(chalk.green(this.#format(message, '√')));
     }
   }
 
   warn(message) {
     if (!this.silent) {
+      // eslint-disable-next-line no-console
       console.log(chalk.yellow(this.#format(message, '‼')));
     }
   }
 
   error(message) {
+    // eslint-disable-next-line no-console
     console.error(chalk.red(this.#format(message, '×')));
   }
 
   debug(message) {
     if (this.verbose && !this.silent) {
+      // eslint-disable-next-line no-console
       console.log(chalk.gray(this.#format(`[debug] ${message}`)));
     }
   }
@@ -61,6 +66,7 @@ export class Logger {
 
     const color = colors[status] || colors.info;
     const prefix = chalk.dim(`[${packageName}]`);
+    // eslint-disable-next-line no-console
     console.log(color(`${prefix} ${message}`));
   }
 

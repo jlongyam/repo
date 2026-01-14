@@ -28,18 +28,18 @@ export default async function depsCommand(options) {
     if (options.json) {
       // JSON output
       const jsonOutput = dependencyGraph.toJSON();
-      console.log(JSON.stringify(jsonOutput, null, 2));
+      logger.info(JSON.stringify(jsonOutput, null, 2));
       return;
     }
     
     if (options.tree) {
       // Tree view
-      console.log(chalk.bold('‡ Dependency Tree'));
-      console.log('='.repeat(50));
+      logger.info(chalk.bold('‡ Dependency Tree'));
+      logger.info('='.repeat(50));
       
       const printTree = (packageName, indent = '', last = true) => {
         const prefix = last ? '└── ' : '├── ';
-        console.log(indent + prefix + chalk.cyan(packageName));
+        logger.info(indent + prefix + chalk.cyan(packageName));
         
         const deps = dependencyGraph.getDependents(packageName);
         deps.forEach((dep, index) => {
@@ -60,32 +60,32 @@ export default async function depsCommand(options) {
       return;
     }
     
-    if (options.visual || true) { // Default to visual
+    if (options.visual) { // Default to visual
       // Visual graph
-      console.log(dependencyGraph.visualize());
+      logger.info(dependencyGraph.visualize());
       return;
     }
     
     // Default table view
-    console.log(chalk.bold('» Package Dependencies'));
-    console.log('='.repeat(80));
+    logger.info(chalk.bold('» Package Dependencies'));
+    logger.info('='.repeat(80));
     
     for (const pkg of packages) {
       const deps = dependencyGraph.getDependencies(pkg);
       const dependents = dependencyGraph.getDependents(pkg);
       
-      console.log(chalk.bold(`\n› ${pkg}`));
+      logger.info(chalk.bold(`\n› ${pkg}`));
       
       if (deps.length > 0) {
-        console.log(`  · Depends on: ${deps.map(d => chalk.cyan(d)).join(', ')}`);
+        logger.info(`  · Depends on: ${deps.map(d => chalk.cyan(d)).join(', ')}`);
       } else {
-        console.log(`  · No dependencies`);
+        logger.info('  · No dependencies');
       }
       
       if (dependents.length > 0) {
-        console.log(`  · Used by: ${dependents.map(d => chalk.magenta(d)).join(', ')}`);
+        logger.info(`  · Used by: ${dependents.map(d => chalk.magenta(d)).join(', ')}`);
       } else {
-        console.log(`  · No dependents`);
+        logger.info('  · No dependents');
       }
     }
     
@@ -94,7 +94,7 @@ export default async function depsCommand(options) {
       dependencyGraph.getOverallOrder();
     } catch (error) {
       if (error.message.includes('circular')) {
-        console.log(chalk.red('\n‼  Warning: Circular dependencies detected!'));
+        logger.warn(chalk.red('\n‼  Warning: Circular dependencies detected!'));
       }
     }
     

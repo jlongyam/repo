@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeAll, afterAll, jest } from '@jest/globals';
+import { describe, it, expect, beforeAll, afterAll } from '@jest/globals';
 import { execa } from 'execa';
 import { mkdtemp, writeFile, mkdir, rm } from 'fs/promises';
 import { join } from 'path';
@@ -104,7 +104,7 @@ describe('CLI End-to-End Tests', () => {
   it('should build all packages', async () => {
     await createTestMonorepo();
     
-    const { stdout, stderr, exitCode } = await runCLI(['build', '--all']);
+    const { stdout, exitCode } = await runCLI(['build', '--all']);
     
     expect(exitCode).toBe(0);
     expect(stdout).toContain('Starting monorepo build');
@@ -178,7 +178,7 @@ describe('CLI End-to-End Tests', () => {
     const emptyDir = await mkdtemp(join(tmpdir(), 'empty-'));
     await writeFile(
       join(emptyDir, 'monorepo-builder.config.js'),
-      `export default { packagesDir: 'packages' };`
+      'export default { packagesDir: \'packages\' };'
     );
     
     const { stdout, exitCode } = await runCLI(['build', '--all'], emptyDir);

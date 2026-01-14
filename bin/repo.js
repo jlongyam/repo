@@ -87,6 +87,7 @@ const main = async () => {
 };
 
 main().catch((error) => {
+  // eslint-disable-next-line no-console
   console.error('× CLI Error:', error.message);
   process.exit(1);
 });

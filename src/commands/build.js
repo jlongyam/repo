@@ -131,7 +131,7 @@ export default async function buildCommand(options) {
   } catch (error) {
     logger.error(`Build failed: ${error.message}`);
     if (config.isVerbose()) {
-      console.error(error.stack);
+      logger.error(error.stack);
     }
     process.exit(1);
   }

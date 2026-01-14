@@ -2,12 +2,12 @@ import { describe, it, expect, beforeEach, afterEach, jest } from '@jest/globals
 import { PackageBuilder } from '../../src/core/builder.js';
 import { Logger } from '../../src/utils/logger.js';
 import execa from 'execa';
-import { mkdir, writeFile, rm } from 'fs/promises';
+import { mkdir, rm } from 'fs/promises';
 import { join } from 'path';
-import { fileURLToPath } from 'url';
+// import { fileURLToPath } from 'url';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = dirname(__filename);
 
 jest.mock('execa');
 

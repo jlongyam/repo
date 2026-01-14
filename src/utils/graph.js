@@ -4,8 +4,9 @@ import { join, dirname, relative } from 'path';
 import fg from 'fast-glob';
 import { config } from './config.js';
 import { Logger } from './logger.js';
+import chalk from 'chalk';
 
-const { readFile, readJson, pathExists } = pkg;
+const { readJson, pathExists } = pkg;
 
 export class DependencyGraph {
   constructor() {
@@ -21,25 +22,25 @@ export class DependencyGraph {
     let packagePaths = [];
 
     switch (packagesConfig.type) {
-      case 'explicit':
-        packagePaths = await this.#discoverExplicitPackages(packagesConfig.paths);
-        break;
+    case 'explicit':
+      packagePaths = await this.#discoverExplicitPackages(packagesConfig.paths);
+      break;
       
-      case 'workspaces':
-        packagePaths = await this.#discoverWorkspacePackages(packagesConfig.patterns);
-        break;
+    case 'workspaces':
+      packagePaths = await this.#discoverWorkspacePackages(packagesConfig.patterns);
+      break;
       
-      case 'directory':
-        packagePaths = await this.#discoverDirectoryPackages(packagesConfig.path);
-        break;
+    case 'directory':
+      packagePaths = await this.#discoverDirectoryPackages(packagesConfig.path);
+      break;
       
-      case 'root':
-        packagePaths = [join(process.cwd(), 'package.json')];
-        break;
+    case 'root':
+      packagePaths = [join(process.cwd(), 'package.json')];
+      break;
       
-      case 'none':
-        this.logger.warn('No packages found. Please create a packages directory or configure package locations.');
-        return this.packages;
+    case 'none':
+      this.logger.warn('No packages found. Please create a packages directory or configure package locations.');
+      return this.packages;
     }
 
     // Process discovered packages

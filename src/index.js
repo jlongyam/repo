@@ -1,11 +1,11 @@
-export { PackageBuilder } from './core/builder.js';
-export { DependencyGraph } from './utils/graph.js';
-export { Logger } from './utils/logger.js';
-export { config } from './utils/config.js';
-export { default as buildCommand } from './commands/build.js';
-export { default as cleanCommand } from './commands/clean.js';
-export { default as watchCommand } from './commands/watch.js';
-export { default as depsCommand } from './commands/deps.js';
+import PackageBuilder from './core/builder.js';
+import { DependencyGraph } from './utils/graph.js';
+import { Logger } from './utils/logger.js';
+import { config } from './utils/config.js';
+import buildCommand from './commands/build.js';
+import cleanCommand from './commands/clean.js';
+import watchCommand from './commands/watch.js';
+import depsCommand from './commands/deps.js';
 
 // Default export
 export default {

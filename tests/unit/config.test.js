@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, afterEach, jest } from '@jest/globals';
+import { describe, it, expect, beforeEach, afterEach } from '@jest/globals';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import { writeFile, mkdir, rm } from 'fs/promises';
@@ -89,9 +89,9 @@ describe('ConfigManager', () => {
 
   describe('getPackagesConfig', () => {
     it('should return explicit packages config', async () => {
-      configManager.#customConfig = {
+      configManager.setConfig({
         packages: ['./ui', './api']
-      };
+      });
       
       const config = await configManager.getPackagesConfig();
       
@@ -100,9 +100,9 @@ describe('ConfigManager', () => {
     });
 
     it('should return workspaces config', async () => {
-      configManager.#customConfig = {
+      configManager.setConfig({
         workspaces: ['packages/*']
-      };
+      });
       
       const config = await configManager.getPackagesConfig();
       
@@ -146,12 +146,12 @@ describe('ConfigManager', () => {
 
   describe('get methods', () => {
     beforeEach(async () => {
-      configManager.#customConfig = {
+      configManager.setConfig({
         packagesDir: 'custom-packages',
         verbose: true,
         parallel: true,
         maxParallel: '8'
-      };
+      });
     });
 
     it('should get custom config value', () => {
@@ -184,7 +184,7 @@ describe('ConfigManager', () => {
 
     it('should get environment variables', () => {
       process.env.CUSTOM_ENV = 'test';
-      configManager.#customConfig.env = { NODE_ENV: 'production' };
+      configManager.setConfig({ env: { NODE_ENV: 'production' } });
       
       const env = configManager.getEnv();
       

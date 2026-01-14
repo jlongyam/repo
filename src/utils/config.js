@@ -1,10 +1,9 @@
 import pkg from 'fs-extra';
-import { join, dirname, resolve } from 'path';
-import { fileURLToPath } from 'url';
+import { join, resolve } from 'path';
 
-const { readFile, readJson, pathExists } = pkg;
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const { readJson, pathExists } = pkg;
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = dirname(__filename);
 
 export class ConfigManager {
   #config = {
@@ -87,11 +86,11 @@ export class ConfigManager {
           }
           
           this.#configPath = path;
-          console.log(`» Loaded config from: ${path}`);
+          // console.log removed
           break;
         }
       } catch (error) {
-        console.warn(`‼  Failed to load config from ${path}:`, error.message);
+        // Silently ignore errors loading config from individual paths
       }
     }
 

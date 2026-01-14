@@ -1,11 +1,6 @@
 #!/usr/bin/env node
 
 import { spawn } from 'child_process';
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
 const testTypes = {
   unit: 'tests/unit/',
@@ -36,5 +31,5 @@ async function runTests(type = 'all', options = []) {
 
 const type = process.argv[2] || 'all';
 const options = process.argv.slice(3);
-
+// eslint-disable-next-line no-console
 runTests(type, options).catch(console.error);

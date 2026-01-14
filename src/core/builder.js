@@ -3,9 +3,9 @@ import { join } from 'path';
 import pkg from 'fs-extra';
 import { config } from '../utils/config.js';
 import { Logger } from '../utils/logger.js';
-import chalk from 'chalk';
+// import chalk from 'chalk';
 
-const { readFile, readJson, pathExists } = pkg;
+const { pathExists, remove } = pkg;
 
 export class PackageBuilder {
   constructor(options = {}) {
