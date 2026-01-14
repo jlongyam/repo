@@ -2,11 +2,6 @@
   "name": "@jlongyam/repo",
   "version": "0.3.0",
   "description": "NO_DESCRIPTION",
-  "main": "index.js",
-  "type": "module",
-  "scripts": {
-    "test": "node test/sample/commit.js"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jlongyam/repo.git"
@@ -21,8 +16,15 @@
     "url": "https://github.com/jlongyam/repo/issues"
   },
   "homepage": "https://github.com/jlongyam/repo",
+  "main": "index.js",
+  "type": "module",
+  "bin": {
+    "repo": "./bin/cli.js"
+  },
+  "scripts": {
+    "test": "node test/sample/commit.js"
+  },
   "dependencies": {
-    "semver": "^7.7.2",
-    "version-next": "^1.0.2"
+    "dotenv": "^17.2.3"
   }
 }
