@@ -1,11 +1,11 @@
 import { describe, it, expect, beforeEach, afterEach } from '@jest/globals';
 import { DependencyGraph } from '../../src/utils/graph.js';
 import { mkdir, writeFile, rm } from 'fs/promises';
-import { join } from 'path';
-// import { fileURLToPath } from 'url';
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
 
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = dirname(__filename);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 describe('DependencyGraph', () => {
   let graph;

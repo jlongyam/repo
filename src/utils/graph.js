@@ -1,4 +1,4 @@
-import DepGraph from 'dependency-graph';
+import { DepGraph } from 'dependency-graph';
 import pkg from 'fs-extra';
 import { join, dirname, relative } from 'path';
 import fg from 'fast-glob';
@@ -166,11 +166,25 @@ export class DependencyGraph {
     return `@monorepo/${dirName}`;
   }
 
-  getBuildOrder(packages = []) {
-    const packagesToBuild = packages.length > 0 
-      ? packages.filter(pkg => this.packages.has(pkg))
-      : Array.from(this.packages.keys());
-
+  getBuildOrder(packages) {
+    // Handle different cases:
+    // - No argument: build all packages
+    // - Empty array: return empty array
+    // - Array with packages: build those packages and their dependencies
+    
+    let packagesToBuild;
+    
+    if (packages === undefined) {
+      // No argument - build all packages
+      packagesToBuild = Array.from(this.packages.keys());
+    } else if (packages.length === 0) {
+      // Empty array - return empty
+      return [];
+    } else {
+      // Array with packages - filter to valid ones
+      packagesToBuild = packages.filter(pkg => this.packages.has(pkg));
+    }
+    
     if (packagesToBuild.length === 0) {
       return [];
     }
@@ -185,9 +199,8 @@ export class DependencyGraph {
       const dependencies = this.graph.dependenciesOf(node);
       dependencies.forEach(dep => visit(dep));
       
-      if (packagesToBuild.includes(node)) {
-        buildOrder.push(node);
-      }
+      // Add to build order (includes all dependencies)
+      buildOrder.push(node);
     };
 
     packagesToBuild.forEach(pkg => visit(pkg));
@@ -203,14 +216,16 @@ export class DependencyGraph {
     if (!this.graph.hasNode(packageName)) {
       return [];
     }
-    return this.graph.dependantsOf(packageName);
+    // Reverse to match expected order (dependents first, then their dependents)
+    return this.graph.dependantsOf(packageName).reverse();
   }
 
   getDependencies(packageName) {
     if (!this.graph.hasNode(packageName)) {
       return [];
     }
-    return this.graph.dependenciesOf(packageName);
+    // Reverse to match expected order (dependencies first, then their dependencies)
+    return this.graph.dependenciesOf(packageName).reverse();
   }
 
   getOverallOrder() {

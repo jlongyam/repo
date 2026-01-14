@@ -2,8 +2,6 @@ import pkg from 'fs-extra';
 import { join, resolve } from 'path';
 
 const { readJson, pathExists } = pkg;
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = dirname(__filename);
 
 export class ConfigManager {
   #config = {
@@ -59,18 +57,25 @@ export class ConfigManager {
   #configPath = null;
 
   constructor() {
-    this.loadConfig();
+    // Don't auto-load config in constructor to avoid async issues
+    // Config will be loaded on first access
   }
 
   async loadConfig(configPath = null) {
+    const cwd = process.cwd();
+    if (!cwd || typeof cwd !== 'string') {
+      // No valid cwd, skip config loading
+      return;
+    }
+    
     const searchPaths = [
       configPath,
-      join(process.cwd(), 'monorepo-builder.config.js'),
-      join(process.cwd(), 'monorepo-builder.config.json'),
-      join(process.cwd(), 'monorepo-builder.config.mjs'),
-      join(process.cwd(), '.mr-builderrc'),
-      join(process.cwd(), '.mr-builderrc.json'),
-      join(process.cwd(), '.config/mr-builder/config.json'),
+      join(cwd, 'monorepo-builder.config.js'),
+      join(cwd, 'monorepo-builder.config.json'),
+      join(cwd, 'monorepo-builder.config.mjs'),
+      join(cwd, '.mr-builderrc'),
+      join(cwd, '.mr-builderrc.json'),
+      join(cwd, '.config/mr-builder/config.json'),
     ];
 
     for (const path of searchPaths) {
@@ -86,7 +91,6 @@ export class ConfigManager {
           }
           
           this.#configPath = path;
-          // console.log removed
           break;
         }
       } catch (error) {
@@ -95,7 +99,7 @@ export class ConfigManager {
     }
 
     // Check for package.json workspaces
-    const rootPackagePath = join(process.cwd(), 'package.json');
+    const rootPackagePath = join(cwd, 'package.json');
     if (await pathExists(rootPackagePath)) {
       try {
         const rootPackage = await readJson(rootPackagePath);
@@ -111,13 +115,18 @@ export class ConfigManager {
   }
 
   get(key) {
-    return this.#customConfig[key] !== undefined 
-      ? this.#customConfig[key] 
+    return this.#customConfig[key] !== undefined
+      ? this.#customConfig[key]
       : this.#config[key];
   }
 
   getAll() {
     return { ...this.#config, ...this.#customConfig };
+  }
+
+  setConfig(customConfig) {
+    // Merge custom config into #customConfig
+    Object.assign(this.#customConfig, customConfig);
   }
 
   getConfigPath() {
@@ -145,28 +154,63 @@ export class ConfigManager {
   }
 
   async getPackagesConfig() {
-    const config = this.getAll();
+    // Save any custom config that was set via setConfig()
+    const savedCustomConfig = { ...this.#customConfig };
+    
+    // Always reload config to handle directory changes
+    // Reset state to ensure fresh loading
+    this.#configPath = null;
+    this.#customConfig = {};
+    await this.loadConfig();
+    
+    // Restore saved custom config (setConfig takes precedence)
+    Object.assign(this.#customConfig, savedCustomConfig);
     
     // If packages are explicitly defined
-    if (config.packages && Array.isArray(config.packages)) {
+    if (this.get('packages') && Array.isArray(this.get('packages'))) {
       return {
         type: 'explicit',
-        paths: config.packages
+        paths: this.get('packages')
       };
     }
     
     // If workspaces are defined
-    if (config.workspaces && Array.isArray(config.workspaces)) {
+    if (this.get('workspaces') && Array.isArray(this.get('workspaces'))) {
       return {
         type: 'workspaces',
-        patterns: config.workspaces
+        patterns: this.get('workspaces')
       };
     }
     
     // Auto-discover in common directories
-    const dirs = config.packagesDirs || [config.packagesDir];
+    const packagesDirs = this.get('packagesDirs');
+    const packagesDir = this.get('packagesDir');
+    
+    // Handle case where config values might be undefined
+    if (!packagesDirs && !packagesDir) {
+      return {
+        type: 'none',
+        paths: []
+      };
+    }
+    
+    // Ensure we have a valid array
+    const dirs = Array.isArray(packagesDirs) && packagesDirs.length > 0
+      ? packagesDirs
+      : [packagesDir].filter(Boolean); // Filter out undefined/null values
+    
+    const cwd = process.cwd();
+    if (!cwd || typeof cwd !== 'string') {
+      return {
+        type: 'none',
+        paths: []
+      };
+    }
+    
     for (const dirName of dirs) {
-      const dirPath = join(process.cwd(), dirName);
+      if (!dirName || typeof dirName !== 'string') continue; // Skip invalid values
+      const dirPath = join(cwd, dirName);
+      
       if (await pathExists(dirPath)) {
         return {
           type: 'directory',
@@ -176,8 +220,10 @@ export class ConfigManager {
     }
     
     // Check if root is a package
-    const rootPackagePath = join(process.cwd(), 'package.json');
-    if (await pathExists(rootPackagePath)) {
+    const rootPackagePath = join(cwd, 'package.json');
+    const rootExists = await pathExists(rootPackagePath);
+    
+    if (rootExists) {
       const rootPackage = await readJson(rootPackagePath);
       if (rootPackage.name) {
         return {

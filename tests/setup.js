@@ -21,8 +21,10 @@ beforeEach(() => {
 
 // Mock process.exit
 const mockExit = jest.spyOn(process, 'exit').mockImplementation(() => {});
-const mockCwd = jest.spyOn(process, 'cwd');
 const mockEnv = { ...process.env };
+
+// Don't mock process.cwd() - let it work naturally
+// The tests will change directory as needed
 
 // Restore mocks after each test
 afterEach(() => {
@@ -33,5 +35,4 @@ afterEach(() => {
 // Clean up after all tests
 afterAll(() => {
   mockExit.mockRestore();
-  mockCwd.mockRestore();
 });
