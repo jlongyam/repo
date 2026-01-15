@@ -23,9 +23,9 @@
     "format": "prettier --write --cache .",
     "lint": "eslint --cache .",
     "typecheck": "tsc --noEmit",
-    "dev:foo": "pnpm run -C packages/foo dev",
-    "build:foo": "pnpm run -C packages/foo build",
-    "test:foo": "pnpm run -C packages/foo test"
+    "dev:lab": "pnpm run -C packages/lab dev",
+    "build:lab": "pnpm run -C packages/lab build",
+    "test:lab": "pnpm run -C packages/lab test"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",

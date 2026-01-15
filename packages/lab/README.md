@@ -1,21 +1,20 @@
-# @@jlongyam/repo/foo
+# @@jlongyam/repo/lab
 
 A minimal typescript library.
 
 ## Development
 
 ```sh
-$ pnpm dev:foo
+pnpm dev:lab
 ```
 
 ## Build
 
 ```sh
-$ pnpm build:foo
+pnpm build:lab
 ```
 
 ## Test
 
 ```sh
-$ pnpm test:foo
-```
+pnpm test:lab

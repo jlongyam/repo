@@ -1,5 +1,5 @@
 {
-  "name": "@@jlongyam/repo/foo",
+  "name": "@jlongyam/lab",
   "version": "1.0.0",
   "description": "A minimal typescript library.",
   "type": "module",
