@@ -1,9 +1,0 @@
-cwd: /Users/jlongyam/Temporary/Github/repo
-dirs: ["packages","libs","projects","apps","modules"]
-packagesDirs: packages,libs,projects,apps,modules
-packagesDir: packages
-Checking /Users/jlongyam/Temporary/Github/repo/packages: false
-Checking /Users/jlongyam/Temporary/Github/repo/libs: false
-Checking /Users/jlongyam/Temporary/Github/repo/projects: false
-Checking /Users/jlongyam/Temporary/Github/repo/apps: false
-Checking /Users/jlongyam/Temporary/Github/repo/modules: false
