@@ -4,7 +4,7 @@ Repo and node modules tools.
 
 ## Features
 
-- `changelog` - generate changelog, see example [changelog](./CHANGELOG.md) output.
+- `changelog` - generate changelog, see example [changelog](./CHANGELOG.md).
 - `clean` - clean __node_modules__ and it's empty folders.
 - `escheck` - check javascript features and polyfill
 
