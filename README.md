@@ -18,3 +18,7 @@ Repo and node modules tools.
 
 - manual generator - [readmecodegen](https://www.readmecodegen.com/)
 - AI generator - [ai-commit](https://marketplace.visualstudio.com/items?itemName=JohhanSantana.ai-commit-vscode)
+
+Check vscode extensions __RECOMMENDED__ generated from `.vscode/extension.json`
+
+[MIT](./LICENSE)

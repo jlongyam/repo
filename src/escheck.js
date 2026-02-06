@@ -24,5 +24,5 @@ async function checkMyFiles(list) {
 
   return result;
 }
-let args = process.argv.slice(2)
-checkMyFiles(args)
+
+export { checkMyFiles }
