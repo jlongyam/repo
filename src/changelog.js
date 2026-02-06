@@ -134,7 +134,7 @@ function generateChangelogContent(data, repoUrl) {
       `${formatCommitsByType(data.unreleased, repoUrl)}\n`;
   }
   data.versions.forEach(version => {
-    changelog += `## [${version.version}] - ${version.date}\n\n` +
+    changelog += `\n## [${version.version}] - ${version.date}\n\n` +
       `${formatCommitsByType(version.commits, repoUrl)}\n`;
   });
   if (repoUrl) {

@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- feature: update changelog for version 1.0.1 release - _jlongyam_
+
+### Changed
+
+- documentation: add docs folder for github page - _jlongyam_
+
+### Other
+
+- Create static.yml - _jlongyam_
+- **feat: add usage section to README** - _jlongyam_
+- Remove GitHub registry from publish config - _jlongyam_
+
 ## [1.0.1] - 2026-02-06
 
 ### Added
@@ -20,6 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Other
 
 - 1.0.1 - _jlongyam_
+
 ## [1.0.0] - 2026-02-06
 
 ### Added
@@ -45,6 +62,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Other
 
 - Update - _jlongyam_
+
 ## [0.3.0] - 2026-01-13
 
 ### Added
@@ -62,7 +80,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - 0.3.0 - _jlongyam_
 - patch(changelog): update changelog for feat: add CHANGELOG.MD - _jlongyam_
+
 ## [0.2.1] - 2025-08-08
+
 
 
 ## [0.2.0] - 2025-08-08
@@ -84,6 +104,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Other
 
 - 0.2.0 - _jlongyam_
+
 ## [0.1.3] - 2025-08-08
 
 ### Added
@@ -97,6 +118,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Other
 
 - 0.1.3 - _jlongyam_
+
 ## [0.1.2] - 2025-08-08
 
 ### Added
@@ -106,6 +128,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Other
 
 - 0.1.2 - _jlongyam_
+
 ## [0.1.1] - 2025-08-08
 
 ### Added
