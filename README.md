@@ -1,23 +1,19 @@
 # Repo
 
-## Prerequisite
+Repo and node modules tools.
 
-- [pnpm](https://pnpm.io/)
+## Features
 
-## Packages
-
-```shell
-repo create monorepo
-repo create node-lib
-```
+- `changelog` - generate changelog, see example [changelog](./CHANGELOG.md) output.
+- `clean` - clean __node_modules__ and it's empty folders.
+- `escheck` - check javascript features and polyfill
 
 ## Reference
 
-- commit - [conventionalcommits](https://www.conventionalcommits.org/en/v1.0.0/)
 - changelog - [keepachangelog](https://keepachangelog.com/en/1.1.0/)
 - version - [semver](https://semver.org/)
+- commit - [conventionalcommits](https://www.conventionalcommits.org/en/v1.0.0/)
 
 ## Tooling
 
-- boilerplate - [quick-start](https://github.com/alex8088/quick-start)
 - generator - [readmecodegen](https://www.readmecodegen.com/)

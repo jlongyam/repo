@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.0.0] - 2026-02-06
 
 ### Added
 
@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- refactor: update changeloh - _jlongyam_
 - chore: add pnpm workspace configuration to only include built dependencies for esbuild - _jlongyam_
 - refactor: remove logger utility and related tests - _jlongyam_
 - refactor: replace console.log with logger methods and remove unused code - _jlongyam_

@@ -13,11 +13,17 @@
   },
   "homepage": "https://github.com/jlongyam/repo",
   "license": "MIT",
+  "devDependencies": {
+    "clean-modules": "^3.1.1",
+    "es-check": "^9.5.4",
+    "semver": "^7.7.4"
+  },
+  "main": "index.js",
   "type": "module",
   "scripts": {
-    "changelog": "node ./changelog.js"
-  },
-  "devDependencies": {
-    "semver": "^7.7.4"
+    "commit": "git add . && cz",
+    "changelog": "node ./changelog.js",
+    "clean": "clean-modules -y && node ./clean.js",
+    "escheck": "node ./escheck.js ./changelog.js ./clean.js ./escheck.js ./index.js"
   }
 }
