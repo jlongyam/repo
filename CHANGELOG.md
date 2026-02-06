@@ -7,16 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- fix: Update static.yml - _jlongyam_
+
+### Other
+
+- 1.0.2 - _jlongyam_
+
+## [1.0.2] - 2026-02-06
+
 ### Added
 
 - feature: update changelog for version 1.0.1 release - _jlongyam_
 
+### Fixed
+
+- fix: produce properly markdown - _jlongyam_
+
 ### Changed
 
+- documentation: add docs folder to package files - _jlongyam_
 - documentation: add docs folder for github page - _jlongyam_
 
 ### Other
 
+- "Move .npmrc file to root directory" - _jlongyam_
 - Create static.yml - _jlongyam_
 - **feat: add usage section to README** - _jlongyam_
 - Remove GitHub registry from publish config - _jlongyam_

@@ -9,14 +9,20 @@ const help = `
 Usage: repo <Command> [option]
 
 <Command>:
-  - changelog       : generate CHANGELOG.md
-  - clean           : clean 'node_modules' and it's empty folders
-  - escheck [files] : check sources files against ES5, separated by SPACE
+  - changelog         : generate CHANGELOG.md
+  - clean             : clean node_modules and it's empty folders
+  - escheck [files]   : check sources files against ES5, separated by SPACE
+  - generate          : generate project files
+  - prepare           : check current project status for publish
+  - server            : install @web/dev-server
 
 Example:
   repo changelog
   repo clean
   repo escheck ./index.js ./src/main.js
+  repo server
+  repo generate
+  repo prepare
 `
 const cwd = process.cwd();
 
@@ -56,6 +62,22 @@ if(argl === 0) {
     catch(e) {
       console.error(e)
     }
+  }
+  else if( args[0] === 'server') {
+    console.log('command:\n\tnpm i @web/dev-server')
+    console.log(`scripts:\n\t{ "server": "web-dev-server" }`)
+    console.log(`help:\n\t npx web-dev-server --help`)
+  }
+  else if (args[0] === 'generate') {
+    console.log('copy paste necessary files from this module.\n')
+    console.log('to generate build, copy paste "rollup.config.js".\ndependencies:')
+    console.log('- rollup\n- @rollup/plugin-node-resolve\n- @rollup/plugin-commonjs\n- @rollup/plugin-babel\n- @babel/preset-env\n- @rollup/plugin-terser')
+    console.log(`- scripts: { "build": "rollup -c" }\n`)
+    console.log('to generate "d.ts":\n- copy paste "tsconfig.json"\n- install "typescript"')
+    console.log(`- scripts: { "types": "tsc" }`)
+  }
+  else if( args[0] === 'prepare') {
+    console.log('command:\n\tnpm publish --dry-run');
   }
   else {
     console.log(help);
