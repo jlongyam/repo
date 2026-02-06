@@ -16,4 +16,5 @@ Repo and node modules tools.
 
 ## Tooling
 
-- generator - [readmecodegen](https://www.readmecodegen.com/)
+- manual generator - [readmecodegen](https://www.readmecodegen.com/)
+- AI generator - [ai-commit](https://marketplace.visualstudio.com/items?itemName=JohhanSantana.ai-commit-vscode)
