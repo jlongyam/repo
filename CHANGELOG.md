@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- feature: bump version to 2.0.0 - _jlongyam_
+
+## [2.0.0] - 2026-02-07
+
+### Added
+
+- feature: add TypeScript and Rollup configurations - _jlongyam_
+
 ### Fixed
 
 - fix: Update static.yml - _jlongyam_
