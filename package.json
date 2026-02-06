@@ -35,6 +35,7 @@
   "files": [
     "./src",
     "./cli",
+    "./docs",
     "./LICENSE",
     "./README.md",
     "./CHANGELOG.MD"
