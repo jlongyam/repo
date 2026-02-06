@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- fix: remove console.log from changelog.js - _jlongyam_
 - fix: remove ts and pnpm - _jlongyam_
 
 ### Changed

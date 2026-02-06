@@ -15,7 +15,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "start": "node ./changelog.js"
+    "changelog": "node ./changelog.js"
   },
   "devDependencies": {
     "semver": "^7.7.4"
