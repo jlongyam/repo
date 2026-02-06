@@ -21,11 +21,26 @@
   "main": "index.js",
   "type": "module",
   "bin": {
-    "repo": "./cli.js"
+    "repo": "cli/repo.js"
   },
   "scripts": {
-    "changelog": "./bin/cli.js changelog",
-    "clean": "./bin/cli.js clean",
-    "escheck": "./bin/cli.js escheck ./src/changelog.js ./src/clean.js ./src/escheck.js ./index.js"
+    "changelog": "./cli/repo.js changelog",
+    "clean": "./cli/repo.js clean",
+    "escheck": "./cli/repo.js escheck ./src/changelog.js ./src/clean.js ./src/escheck.js ./index.js",
+    "prepublish": "npm publish --dry-run"
+  },
+  "exports": {
+    "default": "./index.js"
+  },
+  "files": [
+    "./src",
+    "./cli",
+    "./LICENSE",
+    "./README.md",
+    "./CHANGELOG.MD"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://npm.pkg.github.com"
   }
 }
