@@ -1,6 +1,8 @@
 import fs from 'fs/promises';
 import { execSync } from 'child_process';
 import semver from 'semver';
+import pkg from './package.json' with { type: 'json' };
+
 export async function generateChangelog(options = {}) {
   const { repoUrl } = options;
   try {
@@ -146,6 +148,4 @@ function generateChangelogContent(data, repoUrl) {
   return changelog;
 }
 
-//generateChangelog()
-const version_tag = await getVersionTags()
-console.log(version_tag)
+generateChangelog(pkg.homepage)
