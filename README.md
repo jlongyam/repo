@@ -8,6 +8,11 @@ Repo and node modules tools.
 - `clean` - clean __node_modules__ and it's empty folders.
 - `escheck` - check javascript features and polyfill
 
+## Usage
+
+- `npm i @jlongyam/repo -D`
+- `npx repo --help`
+
 ## Reference
 
 - changelog - [keepachangelog](https://keepachangelog.com/en/1.1.0/)
@@ -19,6 +24,8 @@ Repo and node modules tools.
 - manual generator - [readmecodegen](https://www.readmecodegen.com/)
 - AI generator - [ai-commit](https://marketplace.visualstudio.com/items?itemName=JohhanSantana.ai-commit-vscode)
 
-Check vscode extensions __RECOMMENDED__ generated from `.vscode/extension.json`
+## Note
+
+vscode extensions __RECOMMENDED__ generated from `.vscode/extension.json`
 
 [MIT](./LICENSE)
