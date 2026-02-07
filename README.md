@@ -10,7 +10,7 @@ Repo and node modules tools.
 
 ## Usage
 
-- `npm i @jlongyam/repo -D`
+- `npm i github:@jlongyam/repo -D`
 - `npx repo --help`
 
 ## Reference
