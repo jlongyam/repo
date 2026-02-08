@@ -1,6 +1,6 @@
 {
   "name": "@jlongyam/repo",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Repository Utility",
   "keywords": [
     "repo",
@@ -35,7 +35,7 @@
   "scripts": {
     "changelog": "./cli/repo.js changelog",
     "clean": "./cli/repo.js clean",
-    "prepublish": "npm publish --dry-run",    
+    "prepublish": "npm publish --dry-run",
     "escheck": "./cli/repo.js escheck ./src/changelog.js ./src/clean.js ./src/escheck.js ./index.js",
     "rollup": "rollup -c",
     "ts": "tsc"
