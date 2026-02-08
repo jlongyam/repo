@@ -5,11 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+
+## [2.1.0] - 2026-02-08
 
 ### Added
 
+- feature: add template files for generate command - _jlongyam_
 - feature: bump version to 2.0.0 - _jlongyam_
+
+### Changed
+
+- documentation: Fix npm install command in readme - _jlongyam_
+- documentation: update installation command in README - _jlongyam_
+- documentation: update changelog - _jlongyam_
+
+### Other
+
+- 2.1.0 - _jlongyam_
 
 ## [2.0.0] - 2026-02-07
 
