@@ -39,7 +39,6 @@
     "escheck": "./cli/repo.js escheck ./src/changelog.js ./src/clean.js ./src/escheck.js ./index.js",
     "rollup": "rollup -c",
     "ts": "tsc"
-    
   },
   "exports": {
     "default": "./index.js"
@@ -50,14 +49,7 @@
     "./cli",
     "./docs",
     "./LICENSE",
-    "./README.md",
-    "./CHANGELOG.MD",
-    "./.gitattributes",
-    "./.npmrc",
-    "./.gitignore",
-    "./.editorconfig",
-    "./rollup.config.js",
-    "./tsconfig.json"
+    "./README.md"
   ],
   "publishConfig": {
     "access": "public"

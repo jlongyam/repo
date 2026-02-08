@@ -1,0 +1,3 @@
+@jlongyam:registry=https://npm.pkg.github.com/
+audit=false
+fund=false
