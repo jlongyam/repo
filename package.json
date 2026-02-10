@@ -19,10 +19,8 @@
     "repo": "cli/repo.js"
   },
   "dependencies": {
-    "clean-modules": "^3.1.1",
     "es-check": "^9.5.4",
-    "semver": "^7.7.4",
-    "typescript": "^5.9.3"
+    "semver": "^7.7.4"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.29.0",
@@ -30,7 +28,8 @@
     "@rollup/plugin-commonjs": "^29.0.0",
     "@rollup/plugin-node-resolve": "^16.0.3",
     "@rollup/plugin-terser": "^0.4.4",
-    "rollup": "^4.57.1"
+    "rollup": "^4.57.1",
+    "typescript": "^5.9.3"
   },
   "scripts": {
     "changelog": "./cli/repo.js changelog",

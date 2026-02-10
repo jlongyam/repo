@@ -10,7 +10,7 @@ Usage: repo <Command> [option]
 
 <Command>:
   - changelog         : generate CHANGELOG.md
-  - clean             : clean node_modules and it's empty folders
+  - clean             : clean node_modules empty folders
   - escheck [files]   : check sources files against ES5, separated by SPACE
   - generate          : generate project files
   - prepare           : check current project status for publish
@@ -44,11 +44,8 @@ if(argl === 0) {
   }
   else if (args[0] === 'clean') {
     try {
-      exec(`npx clean-modules -y`, (error, stdout) => {
-        if(error) console.error(error);
-        console.log(stdout)
-        clean(`${cwd}/node_modules`);
-      });
+      console.log('clean empty folder in node_modules ...');
+      clean(`${cwd}/node_modules`);
     }
     catch(e) {
       console.error(e)
