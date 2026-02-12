@@ -1,8 +1,11 @@
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
+import buble from '@rollup/plugin-buble';
 import babel from '@rollup/plugin-babel';
 import terser from '@rollup/plugin-terser';
+// npm i typescript rollup @rollup/plugin-node-resolve @rollup/plugin-commonjs @rollup/plugin-buble @rollup/plugin-babel @rollup/plugin-terser -D
 import pkg from './package.json' with { type: 'json' }
+// import { fileURLToPath } from 'node:url';
 
 //-- auto-generate --//
 const year = new Date().getFullYear();
@@ -20,10 +23,13 @@ const strict = false;
 const plugins = [
   commonjs(),
   resolve(),
+  buble({
+    transforms: { forOf: false }
+  }),
   babel({
     babelHelpers: 'bundled',
     presets: [["@babel/preset-env", {
-      targets: "> 0.25%, last 2 versions, Firefox ESR, not dead, node 5.12.0, chrome 50"
+      targets: "> 0.25%, last 2 versions, Firefox ESR, not dead, node 5.12, chrome 50"
     }]]
   })
 ];
@@ -33,13 +39,30 @@ export default (arg) => {
   //-- manual-config --//
   const path_in = './src';
   const path_out = `./dist`;
-  const format = ['es'];
+  const format = ['cjs','es', 'umd', 'system', 'iife', 'amd'];
   // lib { <file_name>: <export_name> }
   const lib = {
-    changelog: "changelog",
-    clean: "clean",
-    escheck: "escheck"
+    // 'tester/assert': "assert",
+    'tester/runner': "test"
   };
+  // == config special === //
+  // for relative code:
+  // ------------------
+  // let url_code = new URL(`${path_in}/code.${mod}`, import.meta.url);
+  // let global_code = fileURLToPath(url_code);
+  // for devendency code:
+  let globals = {
+    '@jlongyam/env': 'env',
+    '@jlongyam/ansi': 'ansi'
+  };
+  let external = [
+    '@jlongyam/env',
+    '@jlongyam/ansi',
+    //`./code.${mod}`, // relative
+    // 'node:child_process', // node
+    // 'child_process'
+  ];
+  // == end config special === //
   const terser_ = [
     terser({
       compress: {
@@ -64,14 +87,23 @@ export default (arg) => {
   for (let i = 0; i < format.length; i++) {
     let output_keys = Object.keys(output);
     for(let a = 0; a < output_keys.length; a++ ) {
+      let ext = (
+        format[i] === 'cjs' ? 'cjs' :
+        format[i] === 'es' ? 'mjs' :
+        format[i] === 'umd' ? 'umd.js' :
+        format[i] === 'system' ? 'sys.js' :
+        format[i] === 'amd' ? 'amd.js' :
+        'js' )
+      ;
       output[output_keys[a]].push({
         format: format[i],
         name: lib[output_keys[a]],
+        globals: globals,
         banner: banner,
         strict: strict,
         file: minify
-          ? `${path_out}/${format[i]}/${lib[output_keys[a]]}.min.js`
-          : `${path_out}/${format[i]}/${lib[output_keys[a]]}.js`,
+          ? `${path_out}/${lib[output_keys[a]]}.min.${ext}`
+          : `${path_out}/${lib[output_keys[a]]}.${ext}`,
         plugins: terser_
       })
     }
@@ -82,7 +114,7 @@ export default (arg) => {
       input: `${path_in}/${lib_keys[i]}.${mod}`,
       output: output[lib_keys[i]],
       plugins: plugins,
-      external: ['child_process']
+      external: external
     })
   }
   return return_;
