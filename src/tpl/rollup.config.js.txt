@@ -52,6 +52,7 @@ export default (arg) => {
   // let global_code = fileURLToPath(url_code);
   // for devendency code:
   let globals = {
+    // [global_code]: 'code'
     '@jlongyam/env': 'env',
     '@jlongyam/ansi': 'ansi'
   };
