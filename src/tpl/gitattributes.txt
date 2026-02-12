@@ -1,9 +1,11 @@
 # Auto detect text files and perform LF normalization
 * text=auto
-# LFS
-*.zip filter=lfs diff=lfs merge=lfs -text
-*.ico filter=lfs diff=lfs merge=lfs -text
-*.png filter=lfs diff=lfs merge=lfs -text
-*.jpg filter=lfs diff=lfs merge=lfs -text
+
+# LFS uncheck all if needed
+#*.zip filter=lfs diff=lfs merge=lfs -text
+#*.ico filter=lfs diff=lfs merge=lfs -text
+#*.png filter=lfs diff=lfs merge=lfs -text
+#*.jpg filter=lfs diff=lfs merge=lfs -text
+
 # Github Language view
 *.* linguist-language=JavaScript
