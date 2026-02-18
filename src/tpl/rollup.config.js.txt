@@ -3,7 +3,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import buble from '@rollup/plugin-buble';
 import babel from '@rollup/plugin-babel';
 import terser from '@rollup/plugin-terser';
-// npm i typescript rollup @rollup/plugin-node-resolve @rollup/plugin-commonjs @rollup/plugin-buble @rollup/plugin-babel @rollup/plugin-terser -D
+// npm i typescript rollup @rollup/plugin-node-resolve @rollup/plugin-commonjs @rollup/plugin-buble @rollup/plugin-babel @rollup/plugin-terser @babel/preset-env -D
 import pkg from './package.json' with { type: 'json' }
 // import { fileURLToPath } from 'node:url';
 
