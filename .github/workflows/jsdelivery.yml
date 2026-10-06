@@ -1,0 +1,14 @@
+name: Purge jsDelivr Cache
+on:
+  release:
+    types: [published] # Triggers when you publish a new release
+jobs:
+  purge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Purge Cache
+        uses: egad13/purge-jsdelivr-cache@v1
+        with:
+          url: |
+            https://cdn.jsdelivr.net
+            https://cdn.jsdelivr.net
